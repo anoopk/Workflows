@@ -1,0 +1,42 @@
+service: example-stepf-nodejs
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:*"
+        - "s3:*"
+      Resource:
+        - "*"
+
+functions:
+  startEC2:
+    handler: ec2.handler.startEC2
+  writeS3:
+    handler: s3.handler.writeS3
+
+stepFunctions:
+  stateMachines:
+    hellostepfunc1:
+      events:
+        - http:
+            path: startEC2
+            method: post
+      definition:
+        Comment: "A sample application"
+        StartAt: StartEC2
+        States:
+          StartEC2:
+            Type: Task
+            Resource: "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-startEC2"
+            Next: WriteS3
+          WriteS3:
+            Type: Task
+            Resource: "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-writeS3"
+            End: true
+
+plugins:
+  - serverless-step-functions
+  - serverless-pseudo-parameters

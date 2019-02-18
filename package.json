@@ -1,0 +1,10 @@
+{
+  "name": "aylien",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-pseudo-parameters": "^2.4.0",
+    "serverless-step-functions": "^1.13.0"
+  }
+}
