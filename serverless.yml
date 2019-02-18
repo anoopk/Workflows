@@ -10,7 +10,11 @@ provider:
         - "s3:*"
       Resource:
         - "*"
-
+custom:
+  stepFunctionsOffline:
+    stepOne: startEC2
+    stepTwo: writeS3
+        
 functions:
   startEC2:
     handler: ec2.handler.startEC2
@@ -38,5 +42,6 @@ stepFunctions:
             End: true
 
 plugins:
-  - serverless-step-functions
-  - serverless-pseudo-parameters
+    - serverless-step-functions
+    - serverless-pseudo-parameters
+    - serverless-step-functions-offline
