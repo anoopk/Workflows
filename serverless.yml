@@ -17,10 +17,9 @@ custom:
         
 functions:
   startEC2:
-    handler: ../brahma/lib/transformers/sd.handler
-    name: StartEC2
+    handler: ec2.startEC2
   writeS3:
-    handler: ec2.writeS3
+    handler: s3.writeS3
 
 stepFunctions:
   stateMachines:
@@ -35,7 +34,7 @@ stepFunctions:
         States:
           StartEC2:
             Type: Task
-            Resource: "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-startEC2.sync"
+            Resource: "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-startEC2"
             Next: WriteS3
           WriteS3:
             Type: Task
