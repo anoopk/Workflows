@@ -12,14 +12,15 @@ provider:
         - "*"
 custom:
   stepFunctionsOffline:
-    stepOne: startEC2
-    stepTwo: writeS3
+    StartEC2: startEC2
+    WriteS3: writeS3
         
 functions:
   startEC2:
-    handler: ec2.handler.startEC2
+    handler: ec2.startEC2
+    name: StartEC2
   writeS3:
-    handler: s3.handler.writeS3
+    handler: ec2.writeS3
 
 stepFunctions:
   stateMachines:

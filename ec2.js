@@ -2,6 +2,7 @@
 const AWS = require('aws-sdk');
 
 module.exports.startEC2 = (event, context, callback) => {
+	console.log("wd.kjfbvjk;dbnfvkjdsfkj;n");
   const ec2 = new AWS.EC2();
   const params = {
     InstanceIds: [
